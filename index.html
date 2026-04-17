@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHANAVAS — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+  --bg:#080808;--surface:#121212;--card:#161616;--card2:#1b1b1b;
+  --border:rgba(255,214,10,0.14);--border2:rgba(255,214,10,0.22);
+  --accent:#ffd60a;--accent2:#ffbe0b;--accent3:#ffea00;--accent4:#ffb703;
+  --text:#fff8cc;--muted:rgba(255,248,204,0.68);--dim:rgba(255,248,204,0.42);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+html,body{scroll-snap-type:y proximity;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;overflow-x:hidden;cursor:none;}
+img{max-width:100%;height:auto;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:rgba(255,214,10,0.55);border-radius:2px;}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 6vw;
+  background:rgba(7,7,13,0.82);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text);text-decoration:none;letter-spacing:-.02em;}
+.logo em{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:normal;}
+.nav-links{display:flex;gap:.55rem;list-style:none;align-items:center;}
+.nav-links a{
+  color:#1a1400;text-decoration:none;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;
+  padding:.5rem .95rem;border-radius:999px;border:1px solid rgba(255,214,10,.45);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.nav-links a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(255,214,10,.35);opacity:.95;}
+.nav-cta{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a1400;border:none;padding:.5rem 1.3rem;border-radius:50px;font-size:.82rem;font-weight:600;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif;transition:opacity .2s,transform .2s;}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px);}
+.nav-tools{display:flex;align-items:center;gap:.8rem;}
+
+.theme-toggle{position:relative;width:56px;height:30px;display:inline-flex;align-items:center;cursor:pointer;}
+.theme-toggle input{display:none;}
+.tg-track{
+  width:100%;height:100%;border-radius:999px;border:1px solid var(--border2);
+  background:linear-gradient(180deg,#1a1a1a,#0d0d0d);position:relative;overflow:hidden;
+  transition:box-shadow .25s ease, border-color .25s ease, transform .2s ease;
+}
+.theme-toggle:hover .tg-track{box-shadow:0 0 0 3px rgba(255,214,10,.14);transform:translateY(-1px);}
+.tg-thumb{
+  position:absolute;top:3px;left:4px;width:22px;height:22px;border-radius:50%;
+  background:linear-gradient(145deg,var(--accent3),var(--accent2));box-shadow:0 4px 12px rgba(255,214,10,.35);
+  transition:transform .28s cubic-bezier(.4,0,.2,1), box-shadow .25s ease;
+}
+.theme-toggle input:checked + .tg-track .tg-thumb{transform:translateX(25px);}
+.theme-toggle input:checked + .tg-track{border-color:rgba(255,214,10,.45);}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:9rem 6vw 5rem;position:relative;overflow:hidden;}
+.hero,.sec{scroll-snap-align:start;}
+.hero-glow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 60% at 72% 18%,rgba(255,214,10,.2) 0%,transparent 65%),
+  radial-gradient(ellipse 42% 48% at 12% 78%,rgba(255,190,11,.14) 0%,transparent 65%),
+  radial-gradient(ellipse 28% 32% at 48% 48%,rgba(255,234,0,.09) 0%,transparent 55%);}
+.hero-grid{max-width:1240px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.15fr .85fr;gap:5rem;align-items:center;position:relative;z-index:1;}
+
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent3);font-weight:500;margin-bottom:1.4rem;}
+.edot{width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(3rem,6.5vw,5.8rem);line-height:.96;letter-spacing:-.04em;margin-bottom:.6rem;}
+.hero-name .g{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 55%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-name .g{
+  animation:heroShine 4s ease-in-out infinite;
+  background-size:180% 180%;
+}
+@keyframes heroShine{
+  0%,100%{filter:drop-shadow(0 0 0 rgba(255,214,10,0));background-position:0% 50%;}
+  50%{filter:drop-shadow(0 0 18px rgba(255,214,10,.35));background-position:100% 50%;}
+}
+.hero-sub{font-family:'Syne',sans-serif;font-size:clamp(.95rem,2vw,1.25rem);color:var(--muted);font-weight:400;margin-bottom:1.5rem;letter-spacing:-.01em;}
+.hero-intro{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.1rem,2.2vw,1.6rem);
+  color:var(--text);
+  margin-bottom:.7rem;
+  letter-spacing:-.01em;
+}
+.hero-intro span{color:var(--accent);font-weight:700;}
+.hero-name{
+  display:flex;flex-wrap:nowrap;gap:.1em;white-space:nowrap;
+  font-family:'Syne',sans-serif;
+  font-weight:900;
+  font-size:clamp(2.6rem,7.8vw,5.9rem);
+  line-height:.95;
+  letter-spacing:-.02em;
+  margin-bottom:1rem;
+}
+.hero-name .nl{
+  display:inline-block;
+  color:var(--accent3);
+  text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 15px rgba(255,214,10,.22);
+  animation:letterPulse 2.2s ease-in-out infinite;
+}
+.hero-name .nl:nth-child(2){animation-delay:.08s;}
+.hero-name .nl:nth-child(3){animation-delay:.16s;}
+.hero-name .nl:nth-child(4){animation-delay:.24s;}
+.hero-name .nl:nth-child(5){animation-delay:.32s;}
+.hero-name .nl:nth-child(6){animation-delay:.40s;}
+.hero-name .nl:nth-child(7){animation-delay:.48s;}
+.hero-name .nl:nth-child(8){animation-delay:.56s;}
+@keyframes letterPulse{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-6px) scale(1.04);}
+}
+
+.badges{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.8rem;}
+.badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.73rem;padding:.3rem .8rem;border-radius:50px;border:1px solid var(--border2);color:var(--muted);background:rgba(255,255,255,.025);font-weight:400;}
+.badge.go{border-color:rgba(245,158,11,.35);color:var(--accent4);background:rgba(245,158,11,.07);}
+.badge.bl{border-color:rgba(255,214,10,.35);color:var(--accent);background:rgba(255,214,10,.1);}
+.badge.te{border-color:rgba(6,214,160,.35);color:var(--accent3);background:rgba(6,214,160,.07);}
+.badge.pu{border-color:rgba(139,92,246,.35);color:var(--accent2);background:rgba(139,92,246,.07);}
+
+.hero-desc{color:var(--muted);font-size:.98rem;line-height:1.9;max-width:490px;margin-bottom:2.5rem;}
+.actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.9rem;border-radius:50px;font-size:.88rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all .25s;font-family:'DM Sans',sans-serif;}
+.btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a1400;border:none;box-shadow:0 4px 22px rgba(255,214,10,.26);}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(255,214,10,.42);}
+.btn-o{background:transparent;color:var(--muted);border:1px solid var(--border2);}
+.btn-o:hover{color:var(--text);border-color:rgba(255,255,255,.24);transform:translateY(-3px);}
+.social-row{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.2rem;}
+.social-btn{
+  width:43px;height:43px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--accent3);text-decoration:none;font-size:1.03rem;
+  border:1px solid rgba(255,214,10,.45);
+  background:rgba(0,0,0,.45);
+  box-shadow:0 6px 14px rgba(0,0,0,.28);
+  transition:transform .2s ease, box-shadow .2s ease, color .2s ease, border-color .2s ease;
+}
+.social-btn:hover{
+  transform:translateY(-3px) scale(1.05);
+  color:#1a1400;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-color:rgba(255,214,10,.85);
+  box-shadow:0 10px 22px rgba(255,214,10,.35);
+}
+
+.av-zone{position:relative;display:flex;justify-content:center;align-items:center;height:420px;}
+.orbit{position:absolute;border-radius:50%;}
+.o1{width:360px;height:360px;border:1px solid rgba(255,214,10,.25);animation:spin 28s linear infinite;}
+.o1::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);}
+.o2{width:275px;height:275px;border:1px dashed rgba(139,92,246,.12);animation:spin 19s linear infinite reverse;}
+.o2::after{content:'';position:absolute;bottom:-5px;right:20%;width:8px;height:8px;border-radius:50%;background:var(--accent2);box-shadow:0 0 10px var(--accent2);}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.av-inner{width:210px;height:210px;border-radius:50%;z-index:2;position:relative;overflow:hidden;background:linear-gradient(145deg,var(--accent2),var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:3.8rem;color:#1a1400;letter-spacing:-.04em;box-shadow:0 0 60px rgba(255,214,10,.35);}
+.profile-pic{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 18%;display:block;border:2px solid rgba(255,214,10,.45);}
+.initial-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:3.1rem;color:#1a1400;background:linear-gradient(145deg,var(--accent2),var(--accent),var(--accent3));}
+.fl-badge{position:absolute;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:.55rem 1rem;font-size:.75rem;font-weight:500;display:flex;align-items:center;gap:.5rem;z-index:3;animation:float 4s ease-in-out infinite;}
+.fl1{top:30px;right:0;animation-delay:0s;}
+.fl2{bottom:50px;left:-10px;animation-delay:2.2s;}
+.fl3{top:165px;right:-15px;animation-delay:1.1s;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.fd{width:8px;height:8px;border-radius:50%;}
+.fd-g{background:var(--accent3);}
+.fd-y{background:var(--accent4);}
+.fd-b{background:var(--accent);}
+.icon-pop{
+  position:absolute;z-index:4;width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(18,18,18,.9);border:1px solid rgba(255,214,10,.35);
+  color:var(--accent3);font-size:1rem;
+  box-shadow:0 6px 16px rgba(0,0,0,.35),0 0 12px rgba(255,214,10,.18);
+  animation:iconFloat 4.2s ease-in-out infinite;
+}
+.ip1{top:42px;left:24px;animation-delay:0s;}
+.ip2{top:85px;right:18px;animation-delay:.6s;}
+.ip3{bottom:58px;left:26px;animation-delay:1.2s;}
+.ip4{bottom:22px;right:44px;animation-delay:1.8s;}
+@keyframes iconFloat{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-10px) scale(1.06);}
+}
+
+.sec{padding:6rem 6vw;width:100%;}
+.sec-inner{max-width:1240px;margin:0 auto;}
+.sec-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:.6rem;}
+.sec-title{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.9rem,3.5vw,2.7rem);letter-spacing:-.025em;line-height:1.12;margin-bottom:3rem;}
+.sec-title span{color:var(--muted);}
+
+.about-grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start;}
+.about-text p{color:var(--muted);margin-bottom:1.1rem;line-height:1.85;}
+.about-text strong{color:var(--text);font-weight:500;}
+.stats-row{display:flex;gap:2.5rem;margin-top:2.2rem;}
+.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:2.6rem;letter-spacing:-.04em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.stat-lbl{font-size:.8rem;color:var(--dim);margin-top:.2rem;}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.4rem;transition:all .3s;}
+.skill-card:hover{border-color:rgba(255,214,10,.45);transform:translateY(-4px);}
+.sk-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;}
+.sk-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.sk-title{font-family:'Syne',sans-serif;font-weight:600;font-size:.88rem;}
+.sk-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.stag{font-size:.74rem;padding:.25rem .7rem;border-radius:50px;border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.02);}
+
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .3s;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.proj-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,214,10,.1),transparent 55%);opacity:0;transition:opacity .3s;}
+.proj-card:hover::before{opacity:1;}
+.proj-card:hover{border-color:rgba(255,214,10,.35);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.proj-card.wide{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+.proj-num{font-family:'Syne',sans-serif;font-weight:800;font-size:3.5rem;color:rgba(255,255,255,.04);line-height:1;margin-bottom:.8rem;letter-spacing:-.05em;}
+.proj-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.pt{font-size:.68rem;padding:.2rem .6rem;border-radius:4px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;}
+.pt-b{background:rgba(255,214,10,.16);color:var(--accent);}
+.pt-g{background:rgba(6,214,160,.12);color:var(--accent3);}
+.pt-p{background:rgba(139,92,246,.14);color:var(--accent2);}
+.pt-y{background:rgba(245,158,11,.12);color:var(--accent4);}
+.proj-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.25rem;margin-bottom:.7rem;line-height:1.2;letter-spacing:-.02em;}
+.proj-desc{font-size:.88rem;color:var(--muted);line-height:1.75;flex:1;}
+.proj-footer{margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.76rem;color:var(--dim);}
+.proj-visual{background:linear-gradient(145deg,rgba(255,214,10,.08),rgba(255,190,11,.09));border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;min-height:220px;}
+
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
+.ach-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;display:flex;gap:1rem;transition:all .3s;}
+.ach-card:hover{border-color:rgba(245,158,11,.25);transform:translateY(-3px);}
+.ach-card.reveal:nth-child(odd){transform:translateX(-72px);}
+.ach-card.reveal:nth-child(even){transform:translateX(72px);}
+.ach-card.reveal.in{transform:translateX(0);}
+.ach-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.ach-title{font-family:'Syne',sans-serif;font-weight:600;font-size:.95rem;margin-bottom:.3rem;line-height:1.3;}
+.ach-sub{font-size:.8rem;color:var(--muted);line-height:1.55;}
+
+.exp-list{display:flex;flex-direction:column;gap:1.2rem;}
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.6rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;transition:all .3s;}
+.exp-card:hover{border-color:rgba(255,214,10,.35);transform:translateY(-3px);}
+.exp-role{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.2rem;}
+.exp-co{font-size:.85rem;color:var(--accent);margin-bottom:.6rem;}
+.exp-desc{font-size:.85rem;color:var(--muted);line-height:1.7;}
+.exp-date{font-size:.75rem;color:var(--dim);text-align:right;white-space:nowrap;padding:.2rem .75rem;border:1px solid var(--border);border-radius:50px;}
+
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.contact-left p{color:var(--muted);font-size:1rem;line-height:1.85;margin-bottom:2rem;}
+.contact-links{display:flex;flex-direction:column;gap:.8rem;}
+.clink{display:flex;align-items:center;gap:.9rem;color:var(--muted);text-decoration:none;font-size:.9rem;padding:.9rem 1.2rem;border:1px solid var(--border);border-radius:12px;background:var(--card);transition:all .3s;}
+.clink:hover{color:var(--text);border-color:rgba(255,214,10,.4);transform:translateX(4px);}
+.clink-icon{width:36px;height:36px;border-radius:9px;background:rgba(255,214,10,.14);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.clink-icon i{font-size:.95rem;color:var(--accent);}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;}
+.cf-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:1.5rem;}
+.cf-field{margin-bottom:1rem;}
+.cf-field label{display:block;font-size:.78rem;color:var(--dim);margin-bottom:.4rem;letter-spacing:.05em;text-transform:uppercase;}
+.cf-field input,.cf-field textarea{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:.75rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;transition:border-color .2s;resize:vertical;}
+.cf-field input:focus,.cf-field textarea:focus{outline:none;border-color:rgba(255,214,10,.65);}
+.cf-submit{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a1400;border:none;padding:.9rem;border-radius:50px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;margin-top:.5rem;}
+.cf-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,214,10,.45);}
+
+footer{padding:2.5rem 6vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.ft-text{font-size:.8rem;color:var(--dim);}
+.ft-links{display:flex;gap:1.5rem;}
+.ft-links a{font-size:.8rem;color:var(--dim);text-decoration:none;transition:color .2s;}
+.ft-links a:hover{color:var(--muted);}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 6vw;}
+.divider{position:relative;overflow:hidden;}
+.divider::after{
+  content:'';position:absolute;left:-30%;top:0;height:100%;width:30%;
+  background:linear-gradient(90deg,transparent,rgba(255,234,0,.75),transparent);
+  animation:scanLine 5.5s linear infinite;
+}
+@keyframes scanLine{
+  to{left:100%;}
+}
+
+.scroll-progress{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--accent3),var(--accent2));
+  box-shadow:0 0 12px rgba(255,214,10,.7);
+  z-index:1200;
+}
+
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:2000;mix-blend-mode:screen;}
+.cursor-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--accent3);
+  transform:translate(-50%,-50%);box-shadow:0 0 14px rgba(255,234,0,.8);
+}
+.cursor-ring{
+  width:32px;height:32px;border-radius:50%;border:1.6px solid rgba(255,214,10,.7);
+  transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,border-color .2s ease,background .2s ease;
+}
+.cursor-ring.active{
+  width:44px;height:44px;border-color:rgba(255,234,0,.95);background:rgba(255,214,10,.08);
+}
+
+.spark-field{
+  position:fixed;inset:0;pointer-events:none;z-index:4;overflow:hidden;
+}
+.spark{
+  position:absolute;color:var(--accent3);font-size:12px;opacity:.2;
+  text-shadow:0 0 10px rgba(255,214,10,.5);
+  animation:drift var(--dur,12s) linear infinite;
+  animation-delay:var(--del,0s);
+}
+@keyframes drift{
+  0%{transform:translateY(0) translateX(0) scale(.9);opacity:.08;}
+  15%{opacity:.35;}
+  50%{transform:translateY(-30px) translateX(6px) scale(1);}
+  85%{opacity:.28;}
+  100%{transform:translateY(-70px) translateX(-6px) scale(1.05);opacity:0;}
+}
+
+
+.reveal{
+  opacity:0;
+  transform:translateY(34px) scale(.98);
+  transition:opacity .75s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1);
+  transition-delay:var(--d,0ms);
+  will-change:transform,opacity;
+}
+.reveal.in{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+.sec{
+  transition:transform .45s ease, filter .45s ease, opacity .45s ease;
+}
+.sec.is-visible{
+  transform:translateY(0);
+  filter:blur(0);
+  opacity:1;
+}
+.sec:not(.is-visible){
+  transform:translateY(14px);
+  filter:blur(1.5px);
+  opacity:.94;
+}
+
+body.fx-off .orbit,body.fx-off .fl-badge,body.fx-off .edot{animation:none !important;}
+body.fx-off .cursor-dot,body.fx-off .cursor-ring{display:none;}
+body.fx-off .spark-field{display:none;}
+body.fx-off{cursor:auto;}
+body.fx-off a,body.fx-off button,body.fx-off .btn,body.fx-off .clink,body.fx-off .theme-toggle{cursor:pointer;}
+
+@media(max-width:900px){
+  nav{padding:.85rem 4vw;}
+  .hero{padding:7.5rem 4vw 4rem;}
+  .sec{padding:4.5rem 4vw;}
+  .hero-grid,.about-grid,.proj-card.wide,.contact-wrap{grid-template-columns:1fr;gap:2.1rem;}
+  .av-zone{height:300px;}
+  .o1{width:260px;height:260px;}
+  .o2{width:200px;height:200px;}
+  .av-inner{width:160px;height:160px;font-size:2.8rem;}
+  .hero-intro{font-size:1.05rem;}
+  .hero-name{font-size:clamp(2.1rem,9vw,3.3rem);}
+  .hero-sub{font-size:.93rem;line-height:1.6;}
+  .hero-desc{font-size:.9rem;line-height:1.75;}
+  .actions{gap:.7rem;}
+  .btn{padding:.72rem 1.2rem;font-size:.8rem;}
+  .proj-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .stats-row{gap:1.2rem;flex-wrap:wrap;}
+  .contact-form{padding:1.3rem;}
+  .cf-field input,.cf-field textarea{font-size:.86rem;}
+  .fl3{display:none;}
+  .icon-pop{display:none;}
+}
+@media(max-width:640px){
+  .logo{font-size:1rem;}
+  .nav-tools{gap:.5rem;}
+  .nav-cta{padding:.45rem .9rem;font-size:.74rem;}
+  .theme-toggle{width:48px;height:26px;}
+  .tg-thumb{width:18px;height:18px;top:3px;left:4px;}
+  .theme-toggle input:checked + .tg-track .tg-thumb{transform:translateX(20px);}
+  .hero{padding-top:6.5rem;}
+  .hero-name{font-size:clamp(2rem,10.5vw,2.9rem);}
+  .badges{gap:.35rem;}
+  .badge{font-size:.66rem;padding:.25rem .6rem;}
+  .av-zone{height:255px;}
+  .o1{width:210px;height:210px;}
+  .o2{width:160px;height:160px;}
+  .av-inner{width:132px;height:132px;}
+  .fl-badge{display:none;}
+  .sec-title{margin-bottom:1.8rem;}
+  .skills-grid{grid-template-columns:1fr;}
+  .ach-grid{grid-template-columns:1fr;}
+  .proj-card{padding:1.25rem;}
+  .proj-card.wide{gap:1.2rem;}
+  .contact-links .clink{padding:.75rem .85rem;}
+  footer{padding:1.3rem 4vw;gap:.6rem;}
+  .ft-links{gap:.8rem;flex-wrap:wrap;}
+}
+@media(min-width:901px) and (max-width:1200px){
+  .hero{padding-left:5vw;padding-right:5vw;}
+  .sec{padding-left:5vw;padding-right:5vw;}
+  .hero-grid{gap:3rem;}
+  .about-grid{grid-template-columns:1fr;}
+  .skills-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .proj-card.wide{grid-template-columns:1fr;}
+}
+@media (hover:none), (pointer:coarse){
+  body{cursor:auto;}
+  .cursor-dot,.cursor-ring{display:none;}
+  .btn,.nav-cta,.theme-toggle,.skill-card,.proj-card,.ach-card,.exp-card{transform:none !important;}
+}
+</style>
+</head>
+<body>
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="spark-field" id="spark-field"></div>
+
+<nav>
+  <a class="logo" href="#hero"><em>S.</em> SHANAVAS</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-tools">
+    <label class="theme-toggle" title="Toggle animations">
+      <input type="checkbox" id="fx-toggle" checked>
+      <span class="tg-track"><span class="tg-thumb"></span></span>
+    </label>
+    <a class="nav-cta" href="#contact">Reach Out</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow"><span class="edot"></span> Open to Work &nbsp;·&nbsp; Chennai, India</div>
+      <p class="hero-intro">HEY, I'M</p>
+      <h1 class="hero-name" aria-label="SHANAVAS">
+        <span class="nl">S</span><span class="nl">H</span><span class="nl">A</span><span class="nl">N</span><span class="nl">A</span><span class="nl">V</span><span class="nl">A</span><span class="nl">S</span>
+      </h1>
+      <div class="badges">
+        <span class="badge go">🏆 SIH Finalist 2025</span>
+        <span class="badge bl">🌐 Google Student Ambassador</span>
+        <span class="badge pu">⚡ Founder · Nano Spark</span>
+        <span class="badge te">🥇 2× Hackathon Winner</span>
+        <span class="badge go">🚀 ISRO Award Recipient</span>
+      </div>
+      <p class="hero-desc">Electronics &amp; Communication Engineering student at Dhaanish Ahmed College, building real-world IoT systems, transport tech, and eco-innovation. Passionate about embedded systems, full-stack web development, and impactful engineering.</p>
+      <div class="actions">
+        <a class="btn btn-p" href="#projects">View Projects →</a>
+        <a class="btn btn-o" href="#contact">Get in Touch</a>
+        <a class="btn btn-o" href="https://www.linkedin.com/in/s-shanavas-b51336322" target="_blank">LinkedIn ↗</a>
+      </div>
+      <div class="social-row">
+        <a class="social-btn" href="https://github.com/SHAN256-coder" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a class="social-btn" href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="social-btn" href="https://wa.me/918148774546" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a class="social-btn" href="mailto:shandace18@gmail.com" title="Gmail"><i class="fa-solid fa-envelope"></i></a>
+        <a class="social-btn" href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+    </div>
+
+    <div class="av-zone">
+      <div class="icon-pop ip1"><i class="fa-brands fa-html5"></i></div>
+      <div class="icon-pop ip2"><i class="fa-brands fa-css3-alt"></i></div>
+      <div class="icon-pop ip3"><i class="fa-brands fa-js"></i></div>
+      <div class="icon-pop ip4"><i class="fa-brands fa-react"></i></div>
+      <div class="orbit o1"></div>
+      <div class="orbit o2"></div>
+      <div class="av-inner">
+        <img class="profile-pic" src="shanavas-profile.jpg" alt="SHANAVAS profile photo">
+        <div class="initial-fallback" id="initial-fallback">S</div>
+      </div>
+      <div class="fl-badge fl2"><span class="fd fd-y"></span> 473 Connections</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="sec-inner">
+    <p class="sec-label">About Me</p>
+    <h2 class="sec-title">Engineer. Builder. <span>Innovator.</span></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a second-year ECE student at Dhaanish Ahmed College of Engineering, Chennai, with a deep passion for embedded systems, IoT, and building solutions that matter. From Bluetooth-controlled eco-robots to full-stack transport management systems, I love turning ideas into working products.</p>
+        <p>As the <strong>Founder of the Nano Spark Team</strong>, I lead a group of student innovators tackling real engineering challenges. I was selected as a <strong>Google Student Ambassador</strong>, was a <strong>Smart India Hackathon 2025 Finalist</strong>, and won recognition from an <strong>ISRO scientist</strong> for my River Waste Cleaner project at a Tamil Nadu district-level competition.</p>
+        <p>Beyond hardware, I build web apps, design UI/UX, create content with Canva, and explore AI tools. I believe great engineers build — they don't just study.</p>
+        <div class="stats-row">
+          <div><div class="stat-num">2×</div><div class="stat-lbl">Hackathon Winner</div></div>
+          <div><div class="stat-num">473</div><div class="stat-lbl">Connections</div></div>
+          <div><div class="stat-num">5+</div><div class="stat-lbl">Projects Built</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="sec-inner">
+    <p class="sec-label">Skills</p>
+    <h2 class="sec-title">What I <span>Work With</span></h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="sk-head"><div class="sk-icon" style="background:rgba(91,141,239,.12);">🔌</div><div class="sk-title">Embedded &amp; Hardware</div></div>
+        <div class="sk-tags"><span class="stag">Arduino / ESP32</span><span class="stag">ESP8266</span><span class="stag">Digital Electronics</span><span class="stag">VLSI</span><span class="stag">Circuit Design</span><span class="stag">PCB Layout</span><span class="stag">AutoCAD / CADD</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-head"><div class="sk-icon" style="background:rgba(6,214,160,.1);">🌐</div><div class="sk-title">Frontend Development</div></div>
+        <div class="sk-tags"><span class="stag">HTML</span><span class="stag">CSS</span><span class="stag">JavaScript</span><span class="stag">React</span><span class="stag">Vite</span><span class="stag">Tailwind CSS</span><span class="stag">TypeScript</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-head"><div class="sk-icon" style="background:rgba(245,158,11,.1);">🤖</div><div class="sk-title">AI &amp; Automation</div></div>
+        <div class="sk-tags"><span class="stag">Claude AI</span><span class="stag">Perplexity</span><span class="stag">AI Image Gen</span><span class="stag">AI Video Gen</span><span class="stag">n8n Workflows</span><span class="stag">Google Workspace</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-head"><div class="sk-icon" style="background:rgba(139,92,246,.12);">🎨</div><div class="sk-title">Design &amp; Content</div></div>
+        <div class="sk-tags"><span class="stag">Canva</span><span class="stag">Social Media Marketing</span><span class="stag">Poster Design</span><span class="stag">Presentations</span><span class="stag">Infographics</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-head"><div class="sk-icon" style="background:rgba(91,141,239,.1);">💻</div><div class="sk-title">Programming</div></div>
+        <div class="sk-tags"><span class="stag">C</span><span class="stag">C++</span><span class="stag">JavaScript</span><span class="stag">Advanced Excel</span><span class="stag">Microsoft Visual Studio</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-head"><div class="sk-icon" style="background:rgba(6,214,160,.1);">☁️</div><div class="sk-title">IoT &amp; Platforms</div></div>
+        <div class="sk-tags"><span class="stag">Firebase</span><span class="stag">Blynk IoT</span><span class="stag">PlatformIO</span><span class="stag">Vercel</span><span class="stag">Netlify</span><span class="stag">GitHub Pages</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section class="sec" id="projects">
+  <div class="sec-inner">
+    <p class="sec-label">Projects</p>
+    <h2 class="sec-title">Things I've <span>Built</span></h2>
+    <div class="proj-grid">
+
+      <div class="proj-card wide">
+        <div>
+          <div class="proj-num">1</div>
+          <div class="proj-tags"><span class="pt pt-b">MERN Stack</span><span class="pt pt-g">Live Project</span><span class="pt pt-p">React · TypeScript</span></div>
+          <h3 class="proj-title">DACE Transport Management System (DTMS)</h3>
+          <p class="proj-desc">A smart digital platform to modernize college transportation at Dhaanish Ahmed. Features real-time bus tracking, route management, ETA notifications, driver details, emergency alerts, and a centralized admin dashboard. Eliminates long waiting times and manual paperwork. Built with modern web tech and deployed on Vercel.</p>
+          <div class="proj-footer">Mar 2026 – Present &nbsp;·&nbsp; React / Vite / TypeScript / MongoDB / Express.js / Tailwind / Vercel</div>
+        </div>
+        <div class="proj-visual">
+          <div style="text-align:center;padding:2rem;">
+            <div style="font-size:3.2rem;opacity:.5;margin-bottom:.6rem;">🚌</div>
+            <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;">Real-time Transport Platform</div>
+            <div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;">
+              <span class="stag">Live Bus Tracking</span><span class="stag">Admin Dashboard</span><span class="stag">Route Optimization</span><span class="stag">Push Notifications</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">2</div>
+        <div class="proj-tags"><span class="pt pt-g">Hardware</span><span class="pt pt-b">IoT · ESP32</span><span class="pt pt-y">Award Winner</span></div>
+        <h3 class="proj-title">River Waste Collector Robot</h3>
+        <p class="proj-desc">Bluetooth-controlled eco-robot that cleans floating waste from rivers and ponds. Uses DC motors and a motorized elevator mechanism to scoop debris — no human contact with polluted water. Built on buoyant chassis. Won 2nd Prize at Tamil Nadu District Level and was recognized by an ISRO scientist.</p>
+        <div class="proj-footer">Jul 2022 – Oct 2022 &nbsp;·&nbsp; Arduino / ESP32 / Bluetooth / Mobile App</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">3</div>
+        <div class="proj-tags"><span class="pt pt-g">IoT</span><span class="pt pt-b">ESP32 / Firebase</span><span class="pt pt-p">Dashboard</span></div>
+        <h3 class="proj-title">EcoSense — Smart Waste Management</h3>
+        <p class="proj-desc">IoT system using ESP32 and ultrasonic sensors to monitor dustbin fill levels in real-time. Live dark-themed HTML dashboard with route optimization for collection staff. Connected via Blynk IoT and Firebase Realtime Database.</p>
+        <div class="proj-footer">ESP32 / PlatformIO / Blynk IoT / Firebase / Ultrasonic Sensor</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">4</div>
+        <div class="proj-tags"><span class="pt pt-b">Web App</span><span class="pt pt-p">React</span><span class="pt pt-g">Role-Based</span></div>
+        <h3 class="proj-title">DutyDesk — Staff Duty Portal</h3>
+        <p class="proj-desc">Role-based web portal replacing WhatsApp duty communication at college. Admins assign staff duties digitally; staff view schedules from a clean dashboard. Eliminates confusion and missed informal messages.</p>
+        <div class="proj-footer">React / Role-Based Auth / Lovable Platform / Tailwind CSS</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">5</div>
+        <div class="proj-tags"><span class="pt pt-b">Full Stack</span><span class="pt pt-g">QR Code</span><span class="pt pt-p">JWT Auth</span></div>
+        <h3 class="proj-title">CampusGate — Entry/Exit System</h3>
+        <p class="proj-desc">Full-stack college entry/exit management with QR codes and JWT auth. Students scan at gates, instantly logged in SQLite. React frontend served via Express. Real-time attendance visibility for security staff.</p>
+        <div class="proj-footer">React / Express.js / SQLite / JWT / QR Code / Node.js</div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-num">6</div>
+        <div class="proj-tags"><span class="pt pt-g">IoT</span><span class="pt pt-b">ESP8266</span><span class="pt pt-y">Firebase</span></div>
+        <h3 class="proj-title">Gas Sensor WiFi Dashboard</h3>
+        <p class="proj-desc">ESP8266 + MQ-2 gas sensor project streaming live sensor readings to Firebase Realtime Database. Features a WiFi dashboard with JSON API endpoints for real-time monitoring and alerting.</p>
+        <div class="proj-footer">ESP8266 / MQ-2 Sensor / Firebase / Arduino / JSON API</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section class="sec" id="achievements">
+  <div class="sec-inner">
+    <p class="sec-label">Achievements</p>
+    <h2 class="sec-title">Awards &amp; <span>Recognition</span></h2>
+    <div class="ach-grid">
+      <div class="ach-card">
+        <div class="ach-icon" style="background:rgba(245,158,11,.1);">🏆</div>
+        <div>
+          <div class="ach-title">SIH Finalist 2025</div>
+          <div class="ach-sub">Smart India Hackathon 2025 national finalist. Led active development and presentation from initial stages to demo day as part of a cross-functional student team.</div>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon" style="background:rgba(91,141,239,.1);">🚀</div>
+        <div>
+          <div class="ach-title">ISRO Scientist Award</div>
+          <div class="ach-sub">Awarded by an ISRO scientist for innovation in environmental technology — 2nd Prize at Tamil Nadu District Level competition at Peri Engineering College for the River Waste Cleaner project.</div>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon" style="background:rgba(6,214,160,.1);">🌐</div>
+        <div>
+          <div class="ach-title">Google Student Ambassador</div>
+          <div class="ach-sub">Selected as a Google Student Ambassador at Dhaanish Ahmed College, representing Google's developer programs, Workspace tools, and student community initiatives.</div>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon" style="background:rgba(245,158,11,.1);">💰</div>
+        <div>
+          <div class="ach-title">2× Hackathon Winner</div>
+          <div class="ach-sub">Won cash prizes at competitive hackathons including events at Ramanujar Engineering College. Consistent top performer at national and state-level technical events.</div>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon" style="background:rgba(139,92,246,.1);">⚡</div>
+        <div>
+          <div class="ach-title">Founder — Nano Spark Team</div>
+          <div class="ach-sub">Founded the Nano Spark student innovation team. Participated in Embedded Lunch Pad 2024 and multiple national-level symposiums. 473+ LinkedIn connections in the engineering community.</div>
+        </div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-icon" style="background:rgba(91,141,239,.1);">📜</div>
+        <div>
+          <div class="ach-title">AutoCAD Certified — Bim Cadd</div>
+          <div class="ach-sub">Certified in CADD Software for Electronics Design from Bim Cadd Technical Solution, Chennai. Proficient in PCB layout, circuit schematics, and electronic diagram creation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="sec-inner">
+    <p class="sec-label">Experience</p>
+    <h2 class="sec-title">Work &amp; <span>Leadership</span></h2>
+    <div class="exp-list">
+      <div class="exp-card">
+        <div>
+          <div class="exp-role">Electronics Engineering Intern</div>
+          <div class="exp-co">Infinion · Virtual</div>
+          <div class="exp-desc">Designed, developed, and tested electronic systems, components, and devices. Created circuit designs, built prototypes, ensured quality and safety standards, troubleshot faults, and improved system efficiency in collaboration with the engineering team.</div>
+        </div>
+        <div class="exp-date">Jun 2025 – Jul 2025</div>
+      </div>
+      <div class="exp-card">
+        <div>
+          <div class="exp-role">Founder &amp; Team Lead</div>
+          <div class="exp-co">Nano Spark Team · Dhaanish Ahmed College</div>
+          <div class="exp-desc">Founded and lead the Nano Spark student innovation team, driving IoT and embedded system projects, organizing events, mentoring juniors, and competing in national hackathons. Represented the team at Embedded Lunch Pad 2024 and SIH 2025.</div>
+        </div>
+        <div class="exp-date">2024 – Present</div>
+      </div>
+      <div class="exp-card">
+        <div>
+          <div class="exp-role">Google Student Ambassador</div>
+          <div class="exp-co">Google · Dhaanish Ahmed College of Engineering</div>
+          <div class="exp-desc">Officially selected Google Student Ambassador. Promotes Google developer programs, Workspace, and community initiatives on campus. Organizes student sessions and represents the program within the college ecosystem.</div>
+        </div>
+        <div class="exp-date">2024 – Present</div>
+      </div>
+      <div class="exp-card">
+        <div>
+          <div class="exp-role">Freelance Developer &amp; Designer</div>
+          <div class="exp-co">Independent · Chennai</div>
+          <div class="exp-desc">Delivered client-facing full-stack web applications, IoT dashboards, and automation workflows. Designed creative posters, presentations, and infographics for college events and technical symposiums. Participated in national-level project presentations.</div>
+        </div>
+        <div class="exp-date">2023 – Present</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="sec-inner">
+    <p class="sec-label">Contact</p>
+    <h2 class="sec-title">Let's <span>Connect</span></h2>
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <p>I'm open to internships, collaborations, freelance projects, and hackathon partnerships. Whether you have an idea to build or a problem to solve — let's talk!</p>
+        <div class="contact-links">
+          <a class="clink" href="mailto:shandace18@gmail.com">
+            <div class="clink-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div><div style="font-size:.8rem;color:var(--dim);margin-bottom:.1rem;">Email</div><div style="color:var(--text);font-weight:500;">shandace18@gmail.com</div></div>
+          </a>
+          <a class="clink" href="tel:+918148774546">
+            <div class="clink-icon"><i class="fa-solid fa-phone"></i></div>
+            <div><div style="font-size:.8rem;color:var(--dim);margin-bottom:.1rem;">Phone</div><div style="color:var(--text);font-weight:500;">+91 8148 774 546</div></div>
+          </a>
+          <a class="clink" href="https://wa.me/918148774546" target="_blank">
+            <div class="clink-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div><div style="font-size:.8rem;color:var(--dim);margin-bottom:.1rem;">WhatsApp</div><div style="color:var(--text);font-weight:500;">Chat on WhatsApp ↗</div></div>
+          </a>
+          <a class="clink" href="https://www.linkedin.com/in/s-shanavas-b51336322" target="_blank">
+            <div class="clink-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+            <div><div style="font-size:.8rem;color:var(--dim);margin-bottom:.1rem;">LinkedIn</div><div style="color:var(--text);font-weight:500;">SHANAVAS · 473 Connections ↗</div></div>
+          </a>
+          <a class="clink" href="https://github.com/SHAN256-coder" target="_blank">
+            <div class="clink-icon"><i class="fa-brands fa-github"></i></div>
+            <div><div style="font-size:.8rem;color:var(--dim);margin-bottom:.1rem;">GitHub</div><div style="color:var(--text);font-weight:500;">SHAN256-coder ↗</div></div>
+          </a>
+          <div class="clink" style="cursor:default;">
+            <div class="clink-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div><div style="font-size:.8rem;color:var(--dim);margin-bottom:.1rem;">Location</div><div style="color:var(--text);font-weight:500;">Greater Chennai Area, Tamil Nadu</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="cf-title">Send a Message</div>
+        <div class="cf-field"><label>Your Name</label><input type="text" placeholder="John Doe" id="cf-name"></div>
+        <div class="cf-field"><label>Email Address</label><input type="email" placeholder="john@example.com" id="cf-email"></div>
+        <div class="cf-field"><label>Message</label><textarea rows="4" placeholder="Hey SHANAVAS, I'd love to collaborate on..." id="cf-msg"></textarea></div>
+        <button class="cf-submit" onclick="sendMail()">Send Message →</button>
+        <div id="cf-status" style="text-align:center;font-size:.82rem;color:var(--accent3);margin-top:.75rem;min-height:1.2em;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-text">© 2026 SHANAVAS &nbsp;·&nbsp; Chennai, India &nbsp;·&nbsp; Built with passion ⚡</div>
+  <div class="ft-links">
+    <a href="mailto:shandace18@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+    <a href="https://wa.me/918148774546" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://www.linkedin.com/in/s-shanavas-b51336322" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+    <a href="https://github.com/SHAN256-coder" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+  </div>
+</footer>
+
+<div class="cursor-ring" id="cursor-ring"></div>
+<div class="cursor-dot" id="cursor-dot"></div>
+
+<script>
+function sendMail(){
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const msg=document.getElementById('cf-msg').value.trim();
+  const st=document.getElementById('cf-status');
+  if(!name||!email||!msg){st.style.color='#f87171';st.textContent='Please fill all fields.';return;}
+  const sub=encodeURIComponent('Portfolio Contact from '+name);
+  const body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\nMessage:\n'+msg);
+  window.open('mailto:shandace18@gmail.com?subject='+sub+'&body='+body);
+  st.style.color='var(--accent3)';st.textContent='✓ Opening your mail client...';
+  setTimeout(()=>{st.textContent='';},4000);
+}
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+const progress=document.getElementById('scroll-progress');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  navLinks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--text)':'';});
+  const doc=document.documentElement;
+  const total=doc.scrollHeight-window.innerHeight;
+  const val=total>0?(window.scrollY/total)*100:0;
+  if(progress)progress.style.width=`${Math.min(100,Math.max(0,val))}%`;
+});
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');}
+  });
+},{threshold:0.12});
+document.querySelectorAll('.hero-grid > div,.sec-label,.sec-title,.about-text p,.stat-num,.skill-card,.proj-card,.ach-card,.exp-card,.contact-left p,.contact-links .clink,.contact-form,.ft-text,.ft-links a').forEach((el,i)=>{
+  el.classList.add('reveal');
+  el.style.setProperty('--d',`${(i%8)*80}ms`);
+  obs.observe(el);
+});
+
+const secObs=new IntersectionObserver((entries)=>{
+  entries.forEach((e)=>{
+    e.target.classList.toggle('is-visible',e.isIntersecting);
+  });
+},{threshold:0.25});
+document.querySelectorAll('.sec,.hero').forEach((s)=>secObs.observe(s));
+
+const fxToggle=document.getElementById('fx-toggle');
+fxToggle?.addEventListener('change',()=>{
+  document.body.classList.toggle('fx-off',!fxToggle.checked);
+});
+
+const pImg=document.querySelector('.profile-pic');
+const fallback=document.getElementById('initial-fallback');
+pImg?.addEventListener('load',()=>{if(fallback)fallback.style.display='none';});
+pImg?.addEventListener('error',()=>{if(fallback)fallback.style.display='flex';});
+if(pImg?.complete&&pImg.naturalWidth>0){if(fallback)fallback.style.display='none';}
+else if(fallback)fallback.style.display='flex';
+
+const sparkField=document.getElementById('spark-field');
+if(sparkField){
+  for(let i=0;i<30;i++){
+    const sp=document.createElement('span');
+    sp.className='spark';
+    sp.textContent=Math.random()>.5?'⚡':'✦';
+    sp.style.left=`${Math.random()*100}%`;
+    sp.style.top=`${Math.random()*100}%`;
+    sp.style.setProperty('--dur',`${8+Math.random()*10}s`);
+    sp.style.setProperty('--del',`${-Math.random()*10}s`);
+    sp.style.fontSize=`${10+Math.random()*10}px`;
+    sparkField.appendChild(sp);
+  }
+}
+
+const cDot=document.getElementById('cursor-dot');
+const cRing=document.getElementById('cursor-ring');
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',(e)=>{mx=e.clientX;my=e.clientY;});
+
+function animateCursor(){
+  rx+=(mx-rx)*0.18;
+  ry+=(my-ry)*0.18;
+  if(cDot){cDot.style.transform=`translate(${mx}px, ${my}px)`;}
+  if(cRing){cRing.style.transform=`translate(${rx}px, ${ry}px)`;}
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a,button,.btn,.clink,.theme-toggle,input,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cRing?.classList.add('active'));
+  el.addEventListener('mouseleave',()=>cRing?.classList.remove('active'));
+});
+
+document.querySelectorAll('.btn,.nav-cta,.theme-toggle').forEach((el)=>{
+  el.addEventListener('mousemove',(e)=>{
+    if(document.body.classList.contains('fx-off'))return;
+    const r=el.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*0.08;
+    const y=(e.clientY-r.top-r.height/2)*0.08;
+    el.style.transform=`translate(${x}px,${y}px)`;
+  });
+  el.addEventListener('mouseleave',()=>{el.style.transform='';});
+});
+
+document.querySelectorAll('.skill-card,.proj-card,.ach-card,.exp-card').forEach((card)=>{
+  card.addEventListener('mousemove',(e)=>{
+    if(document.body.classList.contains('fx-off'))return;
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(700px) rotateX(${-y*4}deg) rotateY(${x*5}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='';});
+});
+
+
+const parallaxItems=document.querySelectorAll('.hero-intro,.hero-name,.hero-desc,.av-zone');
+let ticking=false;
+function applyParallax(){
+  const vh=window.innerHeight;
+  parallaxItems.forEach((el)=>{
+    const r=el.getBoundingClientRect();
+    const progress=(r.top+r.height*0.5-vh*0.5)/vh;
+    const y=Math.max(-22,Math.min(22,-progress*18));
+    if(!document.body.classList.contains('fx-off')){
+      el.style.transform=`translateY(${y}px)`;
+    }else{
+      el.style.transform='';
+    }
+  });
+  ticking=false;
+}
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(applyParallax);ticking=true;}
+},{passive:true});
+applyParallax();
+</script>
+</body>
+</html>
